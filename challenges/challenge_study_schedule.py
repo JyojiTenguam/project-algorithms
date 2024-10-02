@@ -1,22 +1,15 @@
 def study_schedule(permanence_period, target_time):
-    # Verificar se target_time é None
-    if target_time is None:
+    if not isinstance(target_time, int):
         return None
-    
-    # Inicializar contador
+
     count = 0
-    
-    # Iterar sobre cada período de permanência
+
     for period in permanence_period:
-        # Verificar se a tupla é válida
-        if not isinstance(period, tuple) or len(period) != 2:
+        if not (isinstance(period, tuple) and len(period) == 2 and
+                isinstance(period[0], int) and isinstance(period[1], int)):
             return None
-        start, end = period
-        # Verificar se os elementos da tupla são inteiros
-        if not isinstance(start, int) or not isinstance(end, int):
-            return None
-        # Verificar se o target_time está dentro do período
-        if start <= target_time <= end:
+        entry, exit = period
+        if entry <= target_time <= exit:
             count += 1
-    
+
     return count
